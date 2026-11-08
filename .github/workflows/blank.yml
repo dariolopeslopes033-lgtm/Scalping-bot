@@ -1,0 +1,28 @@
+
+name: Windows Virtual Environment
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Check Windows system
+        run: |
+          systeminfo
+          echo "Windows environment ready"
+
+      - name: Check PowerShell
+        shell: pwsh
+        run: |
+          Get-ComputerInfo |
+            Select-Object WindowsProductName,
+            TotalPhysicalMemory
+            
